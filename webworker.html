@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="text" id="txt"/>
+<ul id="results"></ul>
+<script>
+    var $=function(id){return document.getElementById(id)}
+    var worker=new Worker("worker.js");
+    var txt=$("txt"),result=$("results");
+    worker.onmessage=function(e){
+        result.innerHTML= e.data;
+    }
+    txt.onkeyup=function(e){
+        worker.postMessage(txt.value);
+        result.innerHTML="";
+    }
+</script>
+</body>
+</html>
